@@ -10,17 +10,21 @@
     <body class="center">
 
 
-        <form id="taskForm">
-            <label for="task">What's next?</label><br>
-            <input type="text" id="task"><br>
-            <input type="submit" value="Submit">
-        </form>
+        <div class="stack-vertical">
+            <form id="taskForm">
+                <label for="task">What's next?</label><br>
+                <input type="text" id="task"><br>
+                <input type="submit" value="Submit">
+            </form>
+            
+            <ul id="taskList" style="list-style-type: none">
+                <!-- This unordered list will be dynamically updated
+                    with the contents of the list of tasks from the JSON
+                    in localStorage -->
+            </ul>
+        </div>
 
-        <ul id="taskList">
-            <!-- This unordered list will be dynamically updated 
-             with the contents of the list of tasks from the JSON
-             in localStorage -->
-        </ul>
+        
 
         <script src="script.js"></script>
     </body>
