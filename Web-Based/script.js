@@ -1,6 +1,9 @@
 // submission form from HTML
 const form = document.getElementById("taskForm");
 
+// CLEAR TASKS button from HTML
+const clr = document.getElementById("clear");
+
 // unordered list of tasks from HTML
 let taskList = document.getElementById('taskList');
 
@@ -75,26 +78,37 @@ taskList.addEventListener("change", function(event) {
             console.log(`The "${listItem.textContent}" task was unchecked.`);
         }
 
-
         // modified sort function
         // unchecked items stay at the top
         // checked items are moved to the bottom
         tasks.sort((a, b) => {
-            if (a.completedAt && !b.completedAt) return 1;
             if (!a.completedAt && b.completedAt) return -1;
-
+            if (a.completedAt && !b.completedAt) return 1;
+    
             if (a.completedAt && b.completedAt) return a.completedAt - b.completedAt;
         });
 
         localStorage.setItem("taskList", JSON.stringify(tasks));
         render();
-        console.log(task.completedAt);
     }
 });
 
 
-/* event listener for when a task is removed */
+/* event listener to clear all tasks */
+clr.addEventListener("click", function() {
+    
+    // debug log
+    console.log(`${clr.textContent} button was clicked.`);
 
+    // clears web page memory
+    localStorage.clear();
+
+    // clears local memory of tasks
+    tasks = [];
+
+    // refreshes page
+    render();
+});
 
 
 /* function updates the state of the page */
@@ -131,7 +145,4 @@ function render() {
         taskList.appendChild(listItem);
 
     });
-
-    // debug log for taskList contents
-    console.log("taskList contents: " + tasks);
 }
