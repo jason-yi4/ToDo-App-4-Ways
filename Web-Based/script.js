@@ -53,9 +53,15 @@ taskList.addEventListener("change", function(event) {
         if (event.target.checked) {
             listItem.style.textDecoration = "line-through";
             listItem.style.opacity = "0.5";
+
+            // debug log
+            console.log(`The "${listItem.textContent}" task was checked.`);
         } else {
             listItem.style.textDecoration = "none";
             listItem.style.opacity = "1";
+
+            // debug log
+            console.log(`The "${listItem.textContent}" task was unchecked.`);
         }
     }
 });
