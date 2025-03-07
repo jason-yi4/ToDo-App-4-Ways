@@ -1,6 +1,7 @@
 // submission form from HTML
 const form = document.getElementById("taskForm");
 
+// unordered list of tasks from HTML
 let taskList = document.getElementById('taskList');
 
 // creates an array of tasks based on the localStorage JSON.
@@ -40,7 +41,24 @@ form.addEventListener("submit", function(event) {
 
 
 /* event listener for checkbox ticks on to-do list */
+taskList.addEventListener("change", function(event) {
 
+    // event listener is triggered by any change, this if-statement runs only for checkbox changes
+    if (event.target.type === "checkbox") {
+
+        // creates new list item from the list element that was toggled
+        let listItem = event.target.closest("li");
+
+        // verifies if checkbox was checked
+        if (event.target.checked) {
+            listItem.style.textDecoration = "line-through";
+            listItem.style.opacity = "0.5";
+        } else {
+            listItem.style.textDecoration = "none";
+            listItem.style.opacity = "1";
+        }
+    }
+});
 
 
 
@@ -70,4 +88,7 @@ function render() {
         taskList.appendChild(listItem);
 
     });
+
+    // debug log for taskList contents
+    console.log("taskList contents: " + tasks);
 }
