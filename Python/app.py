@@ -6,6 +6,8 @@ import os
     Created by Jason Yi
 '''
 
+# DEV: Need to implement local file storage reading and writing
+
 # list of tasks
 tasks = []
 
@@ -76,7 +78,7 @@ def modifyTask(c):
 def errorScreen(message):
     os.system('cls')
     print(f'{message}\n')
-    noneInput = input('Press any key to continue...')
+    noneInput = input('Press the ENTER key to continue...')
     
 
 
