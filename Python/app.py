@@ -10,26 +10,94 @@ import os
 tasks = []
 
 # refreshes CLI with current information
-def render():
+def renderTasks():
+    os.system('cls')
+
     print('------To-Do-----')
-    for task in tasks:
-        print(f'[] {task}')
+
+    if len(tasks) > 0:
+        for task in tasks:
+            print(task)
+    else:
+        print('(Nothing yet)')
+
+    print()
+
+# inserts a new task to the BEGINNING of the list of tasks
+def addTask():
+    renderTasks()
+
+    newTask = input('Enter new task: ')
+    
+    tasks.insert(0, f'[ ] {newTask}')
+
+# marks a task as completed
+def completeTask():
+
+    done = False
+
+    while done == False:
+        os.system('cls')
+
+        print('------To-Do-----')
+
+        # print tasks
+        for num in range(len(tasks)):
+            if tasks[num][1] == ' ':
+                print(f'[{num + 1}] {tasks[num][4:]}')
+            else:
+                print(f'[X] {tasks[num][4:]}')
+
+        print()
+
+        # allows program to continue if input type is not castable to integer
+        try:
+            chosenTask = int(input('>>> '))
+        except:
+            errorScreen('INPUT MUST BE A NUMBER')
+            continue
+
+        # checks if a number not in the list is given
+        if (chosenTask - 1) not in range(len(tasks)):
+            errorScreen('NUMBER NOT IN LIST')
+            continue
+        else:
+
+            # mark task as complete
+            tasks[chosenTask - 1] = f'[X] {tasks[chosenTask - 1][4:]}'
+
+            # sort task to back of the list
+            
+
+            done = True
+
+# removes a task from the list of tasks
+def removeTask():
+    pass
+
+# invalid input screen
+def errorScreen(message):
+    os.system('cls')
+    print(f'{message}\n')
+    noneInput = input('Press any key to continue...')
     
 
 
 # app loop
 while True:
 
-    # clears terminal between iterations
-    os.system('cls')
+    # printing list of tasks to terminal
+    renderTasks()
 
+    actionInput = input("WHAT'S NEXT?\n[1] - Add a task\n[2] - Mark a task as completed\n[3] - Remove a task\n[exit]\n>>> ")
 
-    userInput = input("What's next?\n[1] - Add a task\n[2] - Complete a task\n[3] - Remove a task\n[exit]\n>>> ")
-
-
-
-    # breaks out of the loop and terminates the application
-    if userInput.lower() == 'exit':
+    if actionInput == '1':
+        addTask()
+    elif actionInput == '2':
+        completeTask()
+    elif actionInput == '3':
+        removeTask()
+    elif actionInput.lower() == 'exit': # breaks out of the loop and terminates the application
         break
-
-    render()
+    else: # invalid input catch
+        errorScreen('INVALID INPUT')
