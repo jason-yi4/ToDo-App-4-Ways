@@ -31,9 +31,9 @@ def addTask():
     
     tasks.insert(0, f'[ ] {newTask}')
 
-# marks a task as completed
-def completeTask():
-
+# marks a task as completed or removes a task
+def modifyTask(c):
+    completing = c
     done = False
 
     while done == False:
@@ -63,17 +63,14 @@ def completeTask():
             continue
         else:
 
-            # mark task as complete
-            tasks[chosenTask - 1] = f'[X] {tasks[chosenTask - 1][4:]}'
-
-            # sort task to back of the list
-            
+            if completing == True:
+                # mark task as complete
+                tasks[chosenTask - 1] = f'[X] {tasks[chosenTask - 1][4:]}'
+            else:
+                # remove task
+                tasks.pop(chosenTask - 1)
 
             done = True
-
-# removes a task from the list of tasks
-def removeTask():
-    pass
 
 # invalid input screen
 def errorScreen(message):
@@ -94,9 +91,15 @@ while True:
     if actionInput == '1':
         addTask()
     elif actionInput == '2':
-        completeTask()
+        if len(tasks) > 0:
+            modifyTask(True)
+        else:
+            errorScreen('LIST IS EMPTY')
     elif actionInput == '3':
-        removeTask()
+        if len(tasks) > 0:
+            modifyTask(False)
+        else:
+            errorScreen('LIST IS EMPTY')
     elif actionInput.lower() == 'exit': # breaks out of the loop and terminates the application
         break
     else: # invalid input catch
