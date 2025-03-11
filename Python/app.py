@@ -8,7 +8,9 @@ import os
 
 # DEV: Need to implement local file storage reading and writing
 
-# list of tasks
+# opening the tasks.txt file
+file = open('../tasks.txt', 'r')
+
 tasks = []
 
 # refreshes CLI with current information
@@ -103,6 +105,7 @@ while True:
         else:
             errorScreen('LIST IS EMPTY')
     elif actionInput.lower() == 'exit': # breaks out of the loop and terminates the application
+        file.close()
         break
     else: # invalid input catch
         errorScreen('INVALID INPUT')
