@@ -9,9 +9,16 @@ import os
 # DEV: Need to implement local file storage reading and writing
 
 # opening the tasks.txt file
-file = open('../tasks.txt', 'r')
-
+file = open('Python/tasks.txt', 'r+')
+lines = file.readlines()
 tasks = []
+
+# grabbing tasks from tasks.txt and appending to the tasks list type
+for line in lines:
+    words = line.split(',')
+    for word in words:
+        if len(word) > 0 and word != '\n':
+            tasks.append(word.strip())
 
 # refreshes CLI with current information
 def renderTasks():
@@ -33,7 +40,7 @@ def addTask():
 
     newTask = input('Enter new task: ')
     
-    tasks.insert(0, f'[ ] {newTask}')
+    tasks.append(f'[ ] {newTask}')
 
 # marks a task as completed or removes a task
 def modifyTask(c):
@@ -47,7 +54,7 @@ def modifyTask(c):
 
         # print tasks
         for num in range(len(tasks)):
-            if tasks[num][1] == ' ':
+            if len(tasks[num]) > 1 and tasks[num][1] == ' ':
                 print(f'[{num + 1}] {tasks[num][4:]}')
             else:
                 print(f'[X] {tasks[num][4:]}')
@@ -105,6 +112,14 @@ while True:
         else:
             errorScreen('LIST IS EMPTY')
     elif actionInput.lower() == 'exit': # breaks out of the loop and terminates the application
+        
+        file.seek(0)  # move to the beginning of the file
+        file.truncate(0)  # clear contents
+        
+        # writing new tasks
+        for task in tasks:
+            file.write(f'{task}, ')
+
         file.close()
         break
     else: # invalid input catch
