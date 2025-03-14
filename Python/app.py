@@ -17,12 +17,15 @@ tasks = []
 for line in lines:
     words = line.split(',')
     for word in words:
-        if len(word) > 0 and word != '\n':
+        if len(word.strip()) > 0 and word != '\n':
             tasks.append(word.strip())
 
 # refreshes CLI with current information
 def renderTasks():
     os.system('cls')
+
+    # version number
+    print('To-Do List in Python\teVersion 1.0.0\n\n\n')
 
     print('------To-Do-----')
 
@@ -99,16 +102,17 @@ while True:
 
     actionInput = input("WHAT'S NEXT?\n[1] - Add a task\n[2] - Mark a task as completed\n[3] - Remove a task\n[exit]\n>>> ")
 
+    # possible actions
     if actionInput == '1':
         addTask()
     elif actionInput == '2':
         if len(tasks) > 0:
-            modifyTask(True)
+            modifyTask(True) # True indicates completion
         else:
             errorScreen('LIST IS EMPTY')
     elif actionInput == '3':
         if len(tasks) > 0:
-            modifyTask(False)
+            modifyTask(False) # False indicates removal
         else:
             errorScreen('LIST IS EMPTY')
     elif actionInput.lower() == 'exit': # breaks out of the loop and terminates the application
