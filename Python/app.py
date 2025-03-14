@@ -6,10 +6,12 @@ import os
     Created by Jason Yi
 '''
 
-# DEV: Need to implement local file storage reading and writing
+
+# getting directory of current Python script
+scriptDir = os.path.dirname(os.path.abspath(__file__))
 
 # opening the tasks.txt file
-file = open('Python/tasks.txt', 'r+')
+file = open(os.path.join(scriptDir, 'tasks.txt'), 'r+')
 lines = file.readlines()
 tasks = []
 
@@ -25,7 +27,7 @@ def renderTasks():
     os.system('cls')
 
     # version number
-    print('To-Do List in Python\teVersion 1.0.0\n\n\n')
+    print('To-Do List in Python\tVersion 1.0.1\n\n\n')
 
     print('------To-Do-----')
 
