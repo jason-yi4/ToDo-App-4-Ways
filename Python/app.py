@@ -27,7 +27,7 @@ def renderTasks():
     os.system('cls')
 
     # version number
-    print('To-Do List in Python\teVersion 1.0.0\n\n\n')
+    print('To-Do List in Python\tVersion 1.0.1\n\n\n')
 
     print('------To-Do-----')
 
